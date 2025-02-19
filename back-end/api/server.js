@@ -15,7 +15,7 @@ const app = express();
 const PORT = 3001;
 
 app.use(cors());
-app.use(express.json()); 
+// app.use(express.json());
 
 app.get("/api/", (request, response) => {
   response.send("Só vamos trabalhar com os endpoints '/artists' e '/songs'");
@@ -29,10 +29,10 @@ app.get("/api/songs", async (request, response) => {
   response.send(await db.collection("songs").find({}).toArray());
 });
 
-app.use(express.static(path.join(__dirname, '../front-end/dist')));
+app.use(express.static(path.join(__dirname, "../front-end/dist")));
 
-app.get("*", (request, response) => {
-  response.sendFile(path.join(__dirname, '../front-end/dist/index.html'));
+app.get("*", async (request, response) => {
+  response.sendFile(path.join(__dirname, "../front-end/dist/index.html"));
 });
 
 app.listen(PORT, () => {
